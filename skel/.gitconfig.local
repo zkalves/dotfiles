@@ -1,0 +1,18 @@
+# Copied to ~/.gitconfig.local on first install, then never overwritten.
+# Holds anything that must not be shared across machines.
+
+# Required. Left commented so git refuses to commit until it is filled in,
+# rather than committing under a placeholder.
+#[user]
+#    name = Your Name
+#    email = you@example.com
+
+# Site-wide defaults, if this machine has them.
+#[include]
+#    path = /path/to/site/gitconfig
+
+#[safe]
+#    directory = /path/to/shared/repo
+
+#[http]
+#    proxy = HTTPS://proxy.example.net:3128

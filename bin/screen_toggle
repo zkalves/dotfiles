@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# To check the available monitors run:
+# > xrandr --query
+#
+# In my case the output was:
+#
+# Screen 0: minimum 8 x 8, current 3840 x 1200, maximum 16384 x 16384
+# DVI-I-0 disconnected primary (normal left inverted right x axis y axis)
+# DVI-I-1 connected 1920x1200+0+0 (normal left inverted right x axis y axis) 518mm x 324mm
+#    1920x1200     59.95*+
+#    1920x1080     60.00
+#    1680x1050     59.95
+#    1600x1200     60.00
+#    1280x1024     60.02
+#    1280x960      60.00
+#    1024x768      60.00
+#    800x600       60.32
+#    640x480       59.94
+# DP-0 disconnected (normal left inverted right x axis y axis)
+# DP-1 connected 1920x1200+1920+0 (normal left inverted right x axis y axis) 518mm x 324mm
+#    1920x1200     59.95*+
+#    1920x1080     60.00
+#    1680x1050     59.95
+#    1600x1200     60.00
+#    1280x1024     60.02
+#    1280x960      60.00
+#    1024x768      60.00
+#    800x600       60.32
+#    640x480       59.94
+# DP-2 disconnected (normal left inverted right x axis y axis)
+# DP-3 disconnected (normal left inverted right x axis y axis)
+#
+#
+# Where DVI-I-1 is the left monitor and DP-1 is the right monitor. Note that DP-1 has an offset of 1920 added (1920x1200+1920+0)
+# Now I want to turn off the right monitor:
+#
+
+# Now the script to toggle the selected screen:
+# Selected screen to turn off:
+MAIN_SCREEN="DVI-I-1"
+SIDE_SCREEN="DP-1"
+SIDE_SCREEN_POSITION="--right-of"
+
+# Check the status of the selected monitor
+echo $(xrandr -q) | grep -q -e "${SIDE_SCREEN} connected *("
+if [[ $? != 0  ]]; then
+   # Turn off the screen
+   xrandr --output ${SIDE_SCREEN} --off
+else
+   # Turn on the screen
+   xrandr --output ${SIDE_SCREEN} ${SIDE_SCREEN_POSITION} ${MAIN_SCREEN} --auto
+fi
+

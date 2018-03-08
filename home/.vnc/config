@@ -1,0 +1,4 @@
+listen=tcp
+session=gnome
+securitytypes=vncauth,tlsvnc
+

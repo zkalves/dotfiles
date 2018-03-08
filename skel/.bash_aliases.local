@@ -1,0 +1,6 @@
+# Machine-specific values for ~/.bash_aliases. Seeded once; never overwritten.
+# docker_bash is only defined when DOCKER_IMAGE is set.
+
+#DOCKER_IMAGE=harbor.example.net/group/image:latest
+#DOCKER_PROXY=http://proxy.example.net:3128
+#DOCKER_MOUNTS="-v /san:/san -v /data/dockerbuilds:/builds"

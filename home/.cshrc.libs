@@ -1,0 +1,23 @@
+if (!($?LDFLAGS)) then
+    setenv LDFLAGS "-L$HOME/usr/local/lib"
+else
+    setenv LDFLAGS "-L$HOME/usr/local/lib $LDFLAGS"
+endif
+
+if (!($?LD_LIBRARY_PATH)) then
+    setenv LD_LIBRARY_PATH "$HOME/usr/local/lib"
+else
+    setenv LD_LIBRARY_PATH "$HOME/usr/local/lib:$LD_LIBRARY_PATH"
+endif
+
+if (!($?CPPFLAGS)) then
+    setenv CPPFLAGS "-I$HOME/usr/local/include"
+else
+    setenv CPPFLAGS "-I$HOME/usr/local/include $CPPFLAGS"
+endif
+
+if (!($?PKG_CONFIG_PATH)) then
+    setenv PKG_CONFIG_PATH "$HOME/usr/local/lib/pkgconfig"
+else
+    setenv PKG_CONFIG_PATH "$HOME/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+endif

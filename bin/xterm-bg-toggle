@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Light
+echo -e '\e]10;rgb:65/7b/83\a'
+echo -e '\e]11;rgb:fd/f6/e3\a'
+
+# Dark
+echo -e '\e]10;rgb:65/7b/83\a'
+echo -e '\e]11;rgb:00/2b/36\a'

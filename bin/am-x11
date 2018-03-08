@@ -1,0 +1,6 @@
+#!/bin/bash
+# Start x11vnc on $X11_HOST over ssh. Set X11_HOST to "host" or "user@host".
+ssh -tt "${X11_HOST:?set X11_HOST to your X11 host}" << END_SCRIPT
+x11vnc -find
+logout
+END_SCRIPT
