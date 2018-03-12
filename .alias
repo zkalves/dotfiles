@@ -1,0 +1,18 @@
+alias p                 pwd
+alias la                ls -ha
+alias ll                ls -hl
+alias l                 ls -hal
+alias h                 history
+alias hist              'history | tail -20 '
+alias grepc             grep --color
+alias grepn             grep -v
+
+#alias vim               /usr/bin/vimx
+alias gv                gvim
+alias ar                acroread
+
+#License management
+#alias lms_lic           'lmstat -a -c <PORT_NUMBER>@<SERVER_NAME> -f <LICENSE_NAME>'
+#alias rm-lic            'lmremove  -c <PORT_NUMBER>@<SERVER_NAME> <LICENSE_NAME> <USER> <HOST> :0.0'
+#alias lms-srv           'lmstat -a -c <PORT_NUMBER>@<SERVER_NAME>'
+
