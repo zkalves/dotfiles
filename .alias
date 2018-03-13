@@ -1,3 +1,35 @@
+################################################################################
+# UTILITIES
+################################################################################
+# Git commands
+#alias git         'hub'
+alias gadd        'git add'
+alias gbranch     'git branch'
+alias gci         'git commit'
+alias gclone      'git clone --recursive'
+alias gco         'git checkout'
+alias gdiff       'git diff'
+alias gfetch      'git fetch'
+alias ggr         'git gr'
+# Pull push commands to avoid unnecesary information on git log
+alias gpull       'git pull'
+#alias gpush       'git rebase -i @{u} && git push'
+alias gpush       'git push'
+alias grebase     'git rebase'
+alias grm         'git rm'
+alias gsub        'git submodule'
+alias gst         'git status'
+alias gstash      'git stash'
+
+# SOS commands
+alias sadd        'soscmd create'
+alias sco         'soscmd co'
+alias sci         'soscmd ci'
+alias scr         'soscmd create'
+alias sdis        'soscmd discardco'
+alias sst         'soscmd status'
+
+# Linux commands
 alias p                 pwd
 alias la                ls -ha
 alias ll                ls -hl
@@ -7,7 +39,8 @@ alias hist              'history | tail -20 '
 alias grepc             grep --color
 alias grepn             grep -v
 
-#alias vim               /usr/bin/vimx
+alias vin               nvim
+alias vindiff           nvim -d
 alias gv                gvim
 alias ar                acroread
 
