@@ -1,0 +1,16 @@
+#!/bin/bash
+filenames=`ls *.flv -1 | sed -e 's/\..*$//'`
+
+if [ ! -d ./input ]; then
+   mkdir ./input
+fi
+
+for file in $filenames 
+if [ ! -d ./output ]; then
+   mkdir ./output
+fi
+
+for file in $filenames 
+do
+   avconv -i ${file}.flv -codec copy ./output/${file}.mp4
+done

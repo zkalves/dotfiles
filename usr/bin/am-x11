@@ -1,0 +1,5 @@
+#!/bin/bash
+ssh -tt ealves@ealves-l << END_SCRIPT
+x11vnc -find
+logout
+END_SCRIPT

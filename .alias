@@ -30,19 +30,21 @@ alias sdis        'soscmd discardco'
 alias sst         'soscmd status'
 
 # Linux commands
-alias p                 pwd
-alias la                ls -ha
-alias ll                ls -hl
-alias l                 ls -hal
-alias h                 history
+alias p                 'pwd'
+alias la                'ls -ha'
+alias ll                'ls -hl'
+alias l                 'ls -hal'
+alias h                 'history'
+alias bcl               'bc -l'
+alias duh               'du -h --max-depth=1'
 alias hist              'history | tail -20 '
-alias grepc             grep --color
-alias grepn             grep -v
+alias grepc             'grep --color'
+alias grepn             'grep -v'
 
-alias vin               nvim
-alias vindiff           nvim -d
-alias gv                gvim
-alias ar                acroread
+alias vin               'nvim'
+alias vindiff           'nvim -d'
+alias gv                'gvim'
+alias ar                'acroread'
 
 #License management
 #alias lms_lic           'lmstat -a -c <PORT_NUMBER>@<SERVER_NAME> -f <LICENSE_NAME>'
