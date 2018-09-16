@@ -41,6 +41,8 @@ alias hist              'history | tail -20 '
 alias grepc             'grep --color'
 alias grepn             'grep -v'
 
+alias gtkw='gtkwave waveform.lxt </dev/null &>/dev/null &'
+
 alias vin               'nvim'
 alias vindiff           'nvim -d'
 alias gv                'gvim'
