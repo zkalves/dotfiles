@@ -114,6 +114,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # added by Miniconda3 installer
-export PATH="/home/eze/usr/local/miniconda3/bin:$PATH"
+export PATH=~/usr/local/eclipse/java-2018-09/eclipse:~/usr/local/miniconda3/bin:$PATH
 
 stty -ixon
