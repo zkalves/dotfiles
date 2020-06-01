@@ -63,3 +63,23 @@
 
 *faceName: DejaVu Sans Mono for Powerline
 *faceSize: 9
+
+xterm*scrollBar:        true
+xterm*rightScrollBar:   true
+xterm*multiScroll :     on
+xterm*jumpScroll:       on
+xterm*savelines:        16384
+xterm*charClass:        33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+xterm*scrollTtyOutput:  true
+!!XTerm*ttyModes:         erase^?
+!!Xterm*VT100.Translations: \
+!!         #override <key>BackSpace: string(0x7f) \n\
+!!                   <key>Delete:    string(0x1b) string("[3~")\n\
+!!                   <key>Home:      string("\033[1~") \n\
+!!                   <key>End:       string("\033[4~")
+!!*VT100.Translations: #override\
+!!         #override <key>BackSpace: string(0x7f) \n\
+!!                   <key>Delete:    string("\033[3~")\n\
+!!                   <key>Home:      string("\033[1~") \n\
+!!                   <key>End:       string("\033[4~")
+!!*ttyModes:            erase ^?

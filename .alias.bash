@@ -35,11 +35,11 @@ alias la='ls -ha'
 alias ll='ls -hl'
 alias l='ls -hal'
 alias h='history'
-alias bcl='bc -l'
-alias duh='du -h --max-depth=1'
 alias hist='history | tail -20 '
 alias grepc='grep --color'
 alias grepn='grep -v'
+alias bcl='bc -l'
+alias duh='du -h --max-depth=1'
 
 alias gtkw='gtkwave waveform.lxt </dev/null &>/dev/null &'
 
@@ -53,5 +53,13 @@ alias ar='acroread'
 #alias lms_lic='lmstat -a -c <PORT_NUMBER>@<SERVER_NAME> -f <LICENSE_NAME>'
 #alias rm-lic='lmremove  -c <PORT_NUMBER>@<SERVER_NAME> <LICENSE_NAME> <USER> <HOST> :0.0'
 #alias lms-srv='lmstat -a -c <PORT_NUMBER>@<SERVER_NAME>'
+
+# Grid cmds
+# alias qsh1='setenv DISPLAY <HOST:0.0>; qsh -q impl'
+# alias qsh8='setenv DISPLAY <HOST:0.0>; qsh -q impl -pe smp8'
+
+#Module aliases
+alias modav='module avail'
+alias modld='module load'
 
 alias rmap='cd ~/projects/rmap'

@@ -1,0 +1,79 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+    name = zkalves
+    email = alvesel@gmail.com
+
+[color]
+    status = auto
+    branch = auto
+    interactive = auto
+    diff = auto
+    ui = auto
+[fetch]
+    recurseSubmodules = 1
+[push]
+    default = simple
+[mergetool]
+    prompt = true
+[difftool]
+    prompt = false
+[alias]
+    co = checkout
+    cob = checkout -b
+    coo = !git fetch && git checkout
+    br = branch
+    brd = branch -d
+    brD = branch -D
+    merged = branch --merged
+    dmerged = "git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    st = status
+    dt = difftool
+    aa = add -A .
+    cm = commit -m
+    aacm = !git add -A . && git commit -m
+    cp = cherry-pick
+    amend = commit --amend -m
+    dev = !git checkout dev && git pull origin dev
+    staging = !git checkout staging && git pull origin staging
+    master = !git checkout master && git pull origin 
+    po = push origin
+    pod = push origin dev
+    pos = push origin staging
+    pom = push origin master
+    poh = push origin HEAD
+    pogm = !git push origin gh-pages && git checkout master && git pull origin master && git rebase gh-pages && git push origin master && git checkout gh-pages
+    pomg = !git push origin master && git checkout gh-pages && git pull origin gh-pages && git rebase master && git push origin gh-pages && git checkout master
+    plo = pull origin
+    plod = pull origin dev
+    plos = pull origin staging
+    plom = pull origin master
+    ploh = pull origin HEAD
+    unstage = reset --soft HEAD^
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%c(reset) %C(dim white)- %an%C(reset)' --all
+    lg  = !"git lg1"
+    f = "!git ls-files | grep -i"
+    gr = grep -Ii
+    la = "!git config -l | grep alias | cut -c 7-"
+    visual = !gitk
+    update = "!git pull && git submodule sync --recursive && submodule update --init --recursive"
+    #Show available aliases
+    aliases = "!git config -l | egrep '^alias' | cut -c 7- | sort"
+    # Show the last tag in the repo
+    lasttag = describe --tags --abbrev=0
+    #Recurses through the submodules showing commit, date, path, tag (if available) ans short form of repo.
+    subls = submodule -q foreach 'echo -n $sha1 | head -c 11 && printf \"\t\" && echo -n `git show -s --format=%ci $sha1` && printf \"\t%-50sTAG: %-50s\t\" $displaypath `git tag --points-at $sha1 | tr \"\n\" \":\" | sed -e 's/:$//'` && echo `git remote -v | head -1 | sed -e 's/origin.*ssh.*7999//' | sed -e 's/origin.*http.*scm//' | sed -e 's/.fetch.//'` '
+    #Recurses through the submodules showing commit, date, path, tag (if available) ans short form of repo.
+    sublswork = submodule -q foreach 'echo -n `git rev-parse HEAD` | head -c 11 && printf \"\t\" && echo -n `git show -s --format=%ci HEAD` && printf \"\t%-50sTAG: %-50s\t\" $displaypath `git tag --points-at HEAD | tr \"\n\" \":\" | sed -e 's/:$//'` && echo `git remote -v | head -1 | sed -e 's/origin.*ssh.*7999//' | sed -e 's/origin.*http.*scm//' | sed -e 's/.fetch.//'` '
+    # Long form showing full SHA and Full URL, squeezed some field widths to try and keep it on one line
+    sublsl = submodule -q foreach --recursive 'echo -n $sha1 && printf \"\t\" && echo -n `git show -s --format=%ci $sha1` && printf \"\t%-40sTAG: %-30s\t\" $displaypath `git tag --poinst-at $sha1 | tr \"\n\" \":\" | sed -e 's/:$//'` && echo `git remote -v | head -1 | sed -e 's/origin//' | sed -e 's/.fetch.//'` '
+    # Long form for actual Working Copy showing full SHA and Full URL, squeezed some field widths to try and keep it on one line
+    sublslwork = submodule -q foreach --recursive 'echo -n `git rev-parse HEAD` && printf \"\t\" && echo -n `git show -s --format=%ci HEAD` && printf \"\t%-40sTAG: %-30s\t\" $displaypath `git tag --points-at HEAD |tr \"\n\" \":\" | sed -e 's/:$//'` && echo `git remote -v | head -1 | sed -e 's/origin//' | sed -e 's/.fetch.//'` '
+    # Check if the working copies match the expected ones
+    sublsdiff = "!git subls > .subls_stat ; git sublswork > .sublswork_stat ; diff .subls_stat .sublswork_stat ; rm .subls_stat .sublswork_stat "
+    sublsldiff = "!git sublsl > .sublsl_stat ; git sublslwork > .sublslwork_stat ; diff .sublsl_stat .sublslwork_stat ; rm .sublsl_stat .sublslwork_stat "
+    # Update submodules to their latest defined revisions, doing a sync first
+    subup = "!git submodule sync --recursive ; git submodule update --recursive --init"

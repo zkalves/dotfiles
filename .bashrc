@@ -92,8 +92,8 @@ fi
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.dotfiles/.alias ]; then
-    . ~/.dotfiles/.alias
+if [ -f ~/.dotfiles/.alias.bash ]; then
+    . ~/.dotfiles/.alias.bash
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -114,6 +114,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # added by Miniconda3 installer
-export PATH=~/usr/local/eclipse/java-2018-09/eclipse:~/usr/local/miniconda3/bin:$PATH
+#export PATH=~/usr/local/eclipse/java-2018-09/eclipse:~/usr/local/miniconda3/bin:$PATH
 
 stty -ixon
