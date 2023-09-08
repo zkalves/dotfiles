@@ -15,9 +15,14 @@
 [push]
     default = simple
 [mergetool]
-    prompt = true
+    prompt = vindiff
+    conflictstyle = diff3
+[mergetool "vindiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [difftool]
     prompt = false
+[diff]
+    tool = vindiff
 [alias]
     co = checkout
     cob = checkout -b

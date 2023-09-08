@@ -1,0 +1,8 @@
+#!/bin/tcsh
+
+set path = (~/usr/local/bin ~/usr/bin $path)
+rm -rf .deps/
+rm -rf build/
+git pull
+make CMAKE_EXTRA_FLAG="-DCMAKE_INSTALL_PREFIX=$HOME/usr/local"
+make install

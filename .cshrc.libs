@@ -1,0 +1,24 @@
+if (!($?LD_FLAGS)) then
+    setenv LD_FLAGS "-L/home/alvese/usr/local/lib"
+else
+    setenv LD_FLAGS "-L/home/alvese/usr/local/lib $LD_LIBRARY_PATH"
+endif
+if (!($?LD_LIBRARY_PATH)) then
+    setenv LD_LIBRARY_PATH "-L/home/alvese/usr/local/lib"
+else
+    setenv LD_LIBRARY_PATH "-L/home/alvese/usr/local/lib $LD_LIBRARY_PATH"
+endif
+
+if (!($?CPPFLAGS)) then
+    setenv CPPFLAGS "-L/home/alvese/usr/local/include"
+else
+    setenv CPPFLAGS "-L/home/alvese/usr/local/include $CPPFLAGS"
+endif
+
+
+if (!($?PKG_CONFIG_PATH)) then
+    setenv PKG_CONFIG_PATH "-L/home/alvese/usr/local/lib/pkgconfig"
+else
+    setenv PKG_CONFIG_PATH "-L/home/alvese/usr/local/lib/pkgconfig $PKG_CONFIG_PATH"
+endif
+

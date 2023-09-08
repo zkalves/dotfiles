@@ -1,0 +1,26 @@
+#!/bin/bash
+
+WINDOW_MANAGER="XFCE"
+
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+vncconfig -nowin &
+
+if [ ${WINDOW_MANAGER} == "MATE" ]; then
+    if [ -e /usr/bin/mate-session ]; then
+        /usr/bin/mate-session
+    else
+        WINDOW_MANAGER="XFCE"
+    fi
+fi
+
+if [ ${WINDOW_MANAGER} == "XFCE" ]; then
+    if [ -e /usr/bin/xfce4-session ]; then
+        /usr/bin/xfce4-session
+    else
+        WINDOW_MANAGER="UNSET"
+    fi
+fi
+

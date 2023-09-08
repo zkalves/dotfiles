@@ -25,8 +25,11 @@ alias gstash    'git stash'
 alias p         'pwd'
 alias la        'ls -ha'
 alias ll        'ls -hl'
+alias lr        'ls -hltr'
 alias l         'ls -hal'
 alias h         'history'
+alias bcl       'bc -l'
+alias duh       'du -h --max-depth=1'
 alias hist      'history | tail -20 '
 alias grepc     'grep --color'
 alias grepn     'grep -v'
@@ -37,14 +40,12 @@ alias grep_cr   "grep -lUP '\r'"
 # Remove carry return from file
 alias rm_cr     "sed -i 's/\r//g' "
 
-alias bcl       'bc -l'
-alias duh       'du -h --max-depth=1'
-
 alias vin       'nvim'
 #alias vinup     'nvim.update'
 alias vindiff   'nvim -d'
 alias gv        'gvim'
 alias ar        'acroread'
+alias wttr      'curl wttr.in/didcot'
 
 alias sdiffw    'sdiff -bBWs'
 
@@ -62,5 +63,11 @@ alias vnck      'vncserver -kill :1'
 #alias lms-srv   'lmstat -a -c <PORT_NUMBER>@<SERVER_NAME>'
 
 # Grid cmds
-# alias qsh1     'setenv DISPLAY <HOST:0.0>; qsh -q impl'
+# alias qsh1     'xhost + && qsh'
+# alias qsh1     'xhost + && qsh -pe smp8'
 # alias qsh8     'setenv DISPLAY <HOST:0.0>; qsh -q impl -pe smp8'
+# alias qshi1     'setenv DISPLAY <HOST:0.0>; qsh -q impl'
+# alias qshi8     'setenv DISPLAY <HOST:0.0>; qsh -q impl -pe smp8'
+
+# alias qstat_full_me 'qstat -u ${USER} -xml | tr "\n" " " | sed "s#<job_list[^>]*>#\n#g" | sed "s#<[^>]*>##g" | grep " " | column -t'
+
