@@ -1,8 +1,8 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-    name = zkalves
-    email = alvesel@gmail.com
+    name = Ezequiel Alves
+    email = ezequiel.alves@pqshield.com
 
 [color]
     status = auto
@@ -11,7 +11,8 @@
     diff = auto
     ui = auto
 [fetch]
-    recurseSubmodules = 1
+	recurseSubmodules = on-demand
+	prune = true
 [push]
     default = simple
 [mergetool]
@@ -82,3 +83,10 @@
     sublsldiff = "!git sublsl > .sublsl_stat ; git sublslwork > .sublslwork_stat ; diff .sublsl_stat .sublslwork_stat ; rm .sublsl_stat .sublslwork_stat "
     # Update submodules to their latest defined revisions, doing a sync first
     subup = "!git submodule sync --recursive ; git submodule update --recursive --init"
+[safe]
+	directory = /shared/opt/eda/pqs_utils
+[http]
+	proxy = HTTPS://10.1.9.254:3128
+	sslVerify = true
+[init]
+	defaultBranch = main
