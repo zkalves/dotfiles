@@ -14,14 +14,20 @@
 	prune = true
 [push]
     default = simple
+[core]
+    editor = nvim
+[merge]
+    tool = vindiff
 [mergetool]
-    prompt = vindiff
+    prompt = false
     conflictstyle = diff3
 [mergetool "vindiff"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [difftool]
     prompt = false
     trustExitCode = true
+[difftool "vindiff"]
+    cmd = nvim -d $LOCAL $REMOTE
 [diff]
     tool = vindiff
 [alias]
