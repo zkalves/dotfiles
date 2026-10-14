@@ -71,6 +71,14 @@ function install_tmux_plugins {
         tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/"
         "$tpm_dir/bin/install_plugins"
     fi
+
+    # tmux-resurrect only loads strategies from inside its own directory, so
+    # link ours in after install; a plugin update would otherwise drop it.
+    local strategies=$HOME/.tmux/plugins/tmux-resurrect/strategies
+    if [ -d "$strategies" ]; then
+        ln -sf "$libdir/lib/tmux-resurrect-central.sh" "$strategies/vim_central.sh"
+        ln -sf "$libdir/lib/tmux-resurrect-central.sh" "$strategies/nvim_central.sh"
+    fi
 }
 
 libdir=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
