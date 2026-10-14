@@ -14,7 +14,7 @@ function install_file {
 
             cp -r $dst_link $dst_file_bk
             if [ $? -eq 0 ]; then
-                rm $dst_link
+                rm -rf "$dst_link"
             fi
         else
             rm -f $dst_link
@@ -24,14 +24,66 @@ function install_file {
     fi
 }
 
+function install_links {
+    install_file $libdir/.bash_aliases  ~/.bash_aliases
+    install_file $libdir/.cshrc         ~/.cshrc
+    install_file $libdir/.gitconfig     ~/.gitconfig
+    install_file $libdir/.inputrc       ~/.inputrc
+    install_file $libdir/.tmux.conf     ~/.tmux.conf
+    install_file $libdir/.tmux          ~/.tmux
+    install_file $libdir/.Xresources    ~/.Xresources
+    install_file $libdir/.vnc/config    ~/.vnc/config
+    install_file $libdir/.vnc/xstartup  ~/.vnc/xstartup
+    install_file $libdir/.config/xfce4  ~/.config/xfce4
+}
+
+function install_gitconfig_local {
+    local target=~/.gitconfig.local
+
+    if ! [ -e $target ]; then
+        cp $libdir/gitconfig.local.example $target
+        echo "created $target - uncomment [user] and set name/email before committing"
+    fi
+}
+
+function install_tmux_plugins {
+    local tpm_dir=$libdir/.tmux/plugins/tpm
+    local xdg_conf=${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf
+
+    if [ -f $xdg_conf ]; then
+        echo "warning: $xdg_conf takes priority over ~/.tmux.conf for both tmux and tpm"
+    fi
+
+    if [ -f $libdir/.gitmodules ]; then
+        git -C $libdir submodule update --init --recursive
+    elif ! [ -d $tpm_dir/.git ]; then
+        git clone https://github.com/tmux-plugins/tpm $tpm_dir
+    fi
+
+    if [ -x $tpm_dir/bin/install_plugins ]; then
+        tmux start-server
+        tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/"
+        $tpm_dir/bin/install_plugins
+    fi
+}
+
 libdir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
 
-install_file $libdir/.bash_aliases  ~/.bash_aliases
-install_file $libdir/.cshrc         ~/.cshrc
-install_file $libdir/.gitconfig     ~/.gitconfig
-install_file $libdir/.inputrc       ~/.inputrc
-install_file $libdir/.tmux.conf     ~/.tmux.conf
-install_file $libdir/.Xresources    ~/.Xresources
-install_file $libdir/.vnc/config    ~/.vnc/config
-install_file $libdir/.vnc/xstartup  ~/.vnc/xstartup
-install_file $libdir/.config/xfce4  ~/.config/xfce4
+case "${1:-all}" in
+    links)
+        install_links
+        install_gitconfig_local
+        ;;
+    plugins)
+        install_tmux_plugins
+        ;;
+    all)
+        install_links
+        install_gitconfig_local
+        install_tmux_plugins
+        ;;
+    *)
+        echo "usage: ${BASH_SOURCE[0]} [all|links|plugins]" >&2
+        exit 1
+        ;;
+esac

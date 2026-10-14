@@ -1,0 +1,18 @@
+# Copied to ~/.gitconfig.local on first install, then never overwritten.
+# Holds anything that must not be shared across machines.
+
+# Required. Left commented so git refuses to commit until it is filled in,
+# rather than committing under a placeholder.
+#[user]
+#    name = Your Name
+#    email = you@example.com
+
+# Site-wide defaults, if this machine has them.
+#[include]
+#    path = /san/eda/pqs_utils/.gitconfig
+
+#[safe]
+#    directory = /shared/opt/eda/pqs_utils
+
+#[http]
+#    proxy = HTTPS://10.1.9.254:3128

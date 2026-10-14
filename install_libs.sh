@@ -38,7 +38,7 @@ function install_package () {
         eval ${debug}"make CMAKE_EXTRA_FLAGS=\"-DCMAKE_INSTALL_PREFIX=$HOME/usr/local\""
     else
         eval ${debug}"./configure --prefix=$USR_HOME" $3
-        eval ${debug"make"
+        eval ${debug}"make"
     fi
     eval ${debug}"make install"
     cd ..
