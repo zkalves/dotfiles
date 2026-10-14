@@ -35,6 +35,19 @@ function install_links {
 
 # skel/ mirrors $HOME too, but its files are seeds: copied once when the
 # destination is absent, never overwritten and never symlinked.
+# Fontconfig caches by directory mtime and will not notice newly linked
+# fonts on its own. Not mkfontdir/mkfontscale: fonts.dir and fonts.scale are
+# tracked here and symlinked into place, so those would write back into the
+# repository.
+function refresh_font_cache {
+    local fontdir=$HOME/.local/share/fonts
+
+    if [ -d "$fontdir" ] && command -v fc-cache >/dev/null 2>&1; then
+        fc-cache -f "$fontdir" >/dev/null
+        echo "refreshed font cache for $fontdir"
+    fi
+}
+
 function install_skel {
     local src rel dst
 
@@ -87,6 +100,7 @@ case "${1:-all}" in
     links)
         install_links
         install_skel
+        refresh_font_cache
         ;;
     plugins)
         install_tmux_plugins
@@ -94,6 +108,7 @@ case "${1:-all}" in
     all)
         install_links
         install_skel
+        refresh_font_cache
         install_tmux_plugins
         ;;
     *)
