@@ -13,7 +13,15 @@ DIRECTORY="$2"
 
 editor="${ORIGINAL_COMMAND%% *}"
 root="${XDG_DATA_HOME:-$HOME/.local/share}/nvim-sessions"
-session_file="${root}${DIRECTORY}/Session.vim"
+
+# Key on the git work tree, not the pane directory: vim's autochdir moves its
+# process cwd to the open file's directory, which is what tmux records, so the
+# pane directory varies with whatever buffer was last active. The work tree is
+# the same from any subdirectory, so vim and this script agree.
+key="$(git -C "$DIRECTORY" rev-parse --show-toplevel 2>/dev/null)"
+[ -n "$key" ] || key="$DIRECTORY"
+
+session_file="${root}${key}/Session.vim"
 
 if [ -e "$session_file" ]; then
     echo "$editor -S '$session_file'"
