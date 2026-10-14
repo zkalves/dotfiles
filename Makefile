@@ -15,6 +15,7 @@ help:
 	@echo "  plugins      install tmux plugins only"
 	@echo "  libs         build every tool into $(PREFIX)"
 	@echo "  <tool>       build one of: $(LIBS)"
+	@echo "  st           build the st terminal (needs X11 headers, not in libs)"
 	@echo "  libs-clean   drop build stamps so 'make libs' rebuilds"
 
 install:

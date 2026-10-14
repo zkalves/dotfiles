@@ -13,8 +13,17 @@ HTOP_URL     := https://hisham.hm/htop/releases/2.2.0/htop-2.2.0.tar.gz
 LIBEVENT_URL := https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz
 TMUX_GIT     := https://github.com/tmux/tmux.git
 NEOVIM_GIT   := https://github.com/neovim/neovim.git
+ST_GIT       := https://git.suckless.org/st
 
 LIBS := help2man automake ncurses libevent htop tmux neovim
+
+# st needs X11, Xft and fontconfig headers, which cannot be built here, so it
+# is reachable as `make st` but kept out of `make libs`.
+OPTIONAL_LIBS := st
+ALL_LIBS      := $(LIBS) $(OPTIONAL_LIBS)
+
+# Resolve this file's own directory so `make -f libs.mk` also finds st/config.h.
+DOTFILES_DIR ?= $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # Let each build find what the earlier ones installed.
 export PATH            := $(PREFIX)/bin:$(PATH)
@@ -39,11 +48,11 @@ mkdir -p $(SRC_DIR) $(STAMP_DIR)
 test -d $(SRC_DIR)/$(2)/.git || git clone --recurse-submodules $(1) $(SRC_DIR)/$(2)
 endef
 
-.PHONY: libs libs-clean $(LIBS)
+.PHONY: libs libs-clean $(ALL_LIBS)
 
 libs: $(addprefix $(STAMP_DIR)/,$(LIBS))
 
-$(LIBS): %: $(STAMP_DIR)/%
+$(ALL_LIBS): %: $(STAMP_DIR)/%
 
 $(STAMP_DIR)/help2man:
 	$(call build_tarball,$(HELP2MAN_URL),help2man-1.47.8,)
@@ -72,6 +81,13 @@ $(STAMP_DIR)/neovim:
 	$(call clone_repo,$(NEOVIM_GIT),neovim)
 	$(MAKE) -C $(SRC_DIR)/neovim CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$(PREFIX)"
 	$(MAKE) -C $(SRC_DIR)/neovim install
+	touch $@
+
+$(STAMP_DIR)/st: $(STAMP_DIR)/ncurses
+	$(call clone_repo,$(ST_GIT),st)
+	cp $(DOTFILES_DIR)/st/config.h $(SRC_DIR)/st/config.h
+	$(MAKE) -C $(SRC_DIR)/st PREFIX=$(PREFIX)
+	$(MAKE) -C $(SRC_DIR)/st PREFIX=$(PREFIX) install
 	touch $@
 
 libs-clean:

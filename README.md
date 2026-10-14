@@ -71,7 +71,7 @@ before being replaced. Re-running is idempotent: nothing is backed up twice.
 |---|---|
 | `bin/` | add `~/.dotfiles/bin` to `PATH` yourself |
 | `themes/` | applied by hand, see below |
-| `st/config.h` | used when building st |
+| `st/config.h` | copied into the st source tree by `make st` |
 | `lib/git-completion.tcsh`, `lib/tmux_git_prompt_command.csh` | kept for reference; nothing currently sources them |
 
 ## What you have to do yourself
@@ -124,6 +124,7 @@ to restore that pane's splits and buffers.
 | `plugins` | tmux plugins only |
 | `libs` | builds every tool into `$(PREFIX)` |
 | `<tool>` | builds one: help2man automake ncurses libevent htop tmux neovim |
+| `st` | builds the st terminal from `st/config.h` |
 | `libs-clean` | drops build stamps so `make libs` rebuilds |
 
 ## Building tools from source
@@ -141,6 +142,11 @@ make libs PREFIX=/some/other/prefix
 ```
 
 Add `~/usr/local/bin` to `PATH` to use what it builds.
+
+`make st` builds the suckless terminal, copying `st/config.h` into the source
+tree first. It is deliberately not part of `make libs`: st needs X11, Xft and
+fontconfig headers, which cannot be built here, and a host without them
+should not fail the whole run.
 
 ## tmux and vim
 
