@@ -54,9 +54,7 @@ function install_tmux_plugins {
         echo "warning: $xdg_conf takes priority over ~/.tmux.conf for both tmux and tpm"
     fi
 
-    if [ -f $libdir/.gitmodules ]; then
-        git -C $libdir submodule update --init --recursive
-    elif ! [ -d $tpm_dir/.git ]; then
+    if ! [ -d $tpm_dir/.git ]; then
         git clone https://github.com/tmux-plugins/tpm $tpm_dir
     fi
 

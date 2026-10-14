@@ -1,1 +1,4 @@
 **/*~
+# tmux plugins are cloned by install.sh, not tracked
+.tmux/plugins/*
+!.tmux/plugins/.gitkeep
