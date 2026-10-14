@@ -1,7 +1,7 @@
 set path = (~/usr/local/bin_ov $path ~/usr/local/bin ~/usr/bin)
 
 source ~/.dotfiles/.cshrc.libs
-source ~/.dotfiles/.alias.tcsh
+source ~/.dotfiles/.tcsh_aliases
 #source /asic/utils/scripts/cshrc.general > /dev/null
 
 if ( $?DISPLAY ) then

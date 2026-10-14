@@ -57,6 +57,10 @@ alias vnck='vncserver -kill :46'
 #alias lms_lic='lmstat -a -c <PORT_NUMBER>@<SERVER_NAME> -f <LICENSE_NAME>'
 #alias rm-lic='lmremove  -c <PORT_NUMBER>@<SERVER_NAME> <LICENSE_NAME> <USER> <HOST> :0.0'
 #alias lms-srv='lmstat -a -c <PORT_NUMBER>@<SERVER_NAME>'
+alias lms-rtla='lmstat -a -f RTL-Architect'
+alias lms-vcs='lmstat -a -f VCS-BASE-RUNTIME'
+alias lms-genus='lmstat -a -f Genus_Synthesis'
+alias lms-xcelium='lmstat -a -f Xcelium_Single_Core'
 
 # Grid cmds
 # alias qsh1='setenv DISPLAY <HOST:0.0>; qsh -q impl'
@@ -71,3 +75,8 @@ alias less='less -R'
 alias modav='module avail'
 alias modld='module load'
 
+#Duo
+alias nvm_load='nvm use v20.20.1'
+
+#Docker
+alias docker_bash='docker run -it --rm --name ${USER}-r8-test2    -e http_proxy=http://10.1.9.254:3128 -e https_proxy=http://10.1.9.254:3128     -e LD_PRELOAD=/usr/lib64/libudev.so.1     -v /san:/san -v /data/dockerbuilds:/builds     harbor.pqsh.net/pqs-private/pqs-rocky8-phat:latest bash'
