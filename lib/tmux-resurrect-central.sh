@@ -2,11 +2,12 @@
 
 # tmux-resurrect strategy: restore a vim/nvim session from a central store
 # that mirrors the project path, so no Session.vim is written into the
-# project itself. install.sh links this in as both vim_central.sh and
+# project itself. This repository owns it because it owns tmux and installs
+# the plugin; install.sh links it in as both vim_central.sh and
 # nvim_central.sh, which is where tmux-resurrect looks for it.
 #
-# The matching :ObsessionHere command in ~/.sivim/init.vim writes to the
-# same location.
+# s:SessionFile() in ~/.sivim/init.vim builds the same path for
+# :ObsessionHere. Change one and you must change the other.
 
 ORIGINAL_COMMAND="$1"
 DIRECTORY="$2"
