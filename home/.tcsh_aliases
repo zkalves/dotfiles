@@ -1,6 +1,12 @@
 ################################################################################
 # UTILITIES
 ################################################################################
+# Editor, so git and friends use the sivim config rather than plain vi.
+if ( -X nvim ) then
+    setenv EDITOR nvim
+    setenv VISUAL nvim
+endif
+
 # Git commands
 #alias git='hub'
 alias gadd      'git add'

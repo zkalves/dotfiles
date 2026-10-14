@@ -6,6 +6,12 @@ if [ -f ~/.bash_aliases.local ]; then
     . ~/.bash_aliases.local
 fi
 
+# Editor, so git and friends use the sivim config rather than plain vi.
+if command -v nvim >/dev/null 2>&1; then
+    export EDITOR=nvim
+    export VISUAL=nvim
+fi
+
 # Git commands
 #alias git='hub'
 alias gadd='git add'
