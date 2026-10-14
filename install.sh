@@ -1,71 +1,67 @@
 #!/bin/bash
 
+# Everything under home/ mirrors $HOME and is symlinked into place.
+# Anything an existing path would shadow is backed up to <name>.bk.<n> first.
+
 function install_file {
     local src_file=$1
     local dst_link=$2
 
-    if ! [ "$dst_link" -ef "$src_file" ]; then
-        if [ -e $dst_link ]; then
-            i=0
-            while [[ -e $dst_link.bk.$i ]] ; do
-                let i++
-            done
-            dst_file_bk=$dst_link.bk.$i
-
-            cp -r $dst_link $dst_file_bk
-            if [ $? -eq 0 ]; then
-                rm -rf "$dst_link"
-            fi
-        else
-            rm -f $dst_link
-        fi
-
-        ln -s $src_file $dst_link
+    if [ "$dst_link" -ef "$src_file" ]; then
+        return
     fi
+
+    if [ -e "$dst_link" ] || [ -L "$dst_link" ]; then
+        local i=0
+        while [ -e "$dst_link.bk.$i" ]; do
+            i=$((i + 1))
+        done
+        cp -r "$dst_link" "$dst_link.bk.$i" && rm -rf "$dst_link"
+    fi
+
+    ln -s "$src_file" "$dst_link"
 }
 
 function install_links {
-    install_file $libdir/.bash_aliases  ~/.bash_aliases
-    install_file $libdir/.cshrc         ~/.cshrc
-    install_file $libdir/.gitconfig     ~/.gitconfig
-    install_file $libdir/.inputrc       ~/.inputrc
-    install_file $libdir/.tmux.conf     ~/.tmux.conf
-    install_file $libdir/.tmux          ~/.tmux
-    install_file $libdir/.Xresources    ~/.Xresources
-    install_file $libdir/.vnc/config    ~/.vnc/config
-    install_file $libdir/.vnc/xstartup  ~/.vnc/xstartup
-    install_file $libdir/.config/xfce4  ~/.config/xfce4
+    local src rel dst
+
+    while IFS= read -r -d '' src; do
+        rel=${src#"$libdir/home/"}
+        dst=$HOME/$rel
+        mkdir -p "$(dirname "$dst")"
+        install_file "$src" "$dst"
+    done < <(find "$libdir/home" -type f -print0)
 }
 
 function install_gitconfig_local {
-    local target=~/.gitconfig.local
+    local target=$HOME/.gitconfig.local
 
-    if ! [ -e $target ]; then
-        cp $libdir/gitconfig.local.example $target
+    if ! [ -e "$target" ]; then
+        cp "$libdir/templates/gitconfig.local.example" "$target"
         echo "created $target - uncomment [user] and set name/email before committing"
     fi
 }
 
 function install_tmux_plugins {
-    local tpm_dir=$libdir/.tmux/plugins/tpm
+    local tpm_dir=$HOME/.tmux/plugins/tpm
     local xdg_conf=${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf
 
-    if [ -f $xdg_conf ]; then
+    if [ -f "$xdg_conf" ]; then
         echo "warning: $xdg_conf takes priority over ~/.tmux.conf for both tmux and tpm"
     fi
 
-    if ! [ -d $tpm_dir/.git ]; then
-        git clone https://github.com/tmux-plugins/tpm $tpm_dir
+    if ! [ -d "$tpm_dir/.git" ]; then
+        git clone https://github.com/tmux-plugins/tpm "$tpm_dir"
     fi
 
-    if [ -x $tpm_dir/bin/install_plugins ]; then
+    if [ -x "$tpm_dir/bin/install_plugins" ]; then
         tmux start-server
         tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins/"
-        $tpm_dir/bin/install_plugins
+        "$tpm_dir/bin/install_plugins"
     fi
 }
 
-libdir=$(dirname $(readlink -f ${BASH_SOURCE[0]}))
+libdir=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
 case "${1:-all}" in
     links)

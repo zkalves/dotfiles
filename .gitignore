@@ -1,4 +1,3 @@
 **/*~
-# tmux plugins are cloned by install.sh, not tracked
-.tmux/plugins/*
-!.tmux/plugins/.gitkeep
+# leftover from the pre-home/ layout; plugins now live in ~/.tmux
+.tmux/
