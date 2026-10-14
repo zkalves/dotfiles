@@ -2,6 +2,10 @@
 
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
+
+# Key repeat rate, set before xinitrc blocks for the life of the session.
+xset r rate 600 30
+
 /etc/X11/xinit/xinitrc
 # Assume either Gnome or KDE will be started by default when installed
 # We want to kill the session automatically in this case when user logs out. In case you modify
@@ -10,7 +14,4 @@ unset DBUS_SESSION_BUS_ADDRESS
 if [ -e /usr/bin/gnome-session -o -e /usr/bin/startkde ]; then
     vncserver -kill $DISPLAY
 fi
-
-# Fix VNC key repeat for tmux
-xset r rate 600 30
 
