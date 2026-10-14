@@ -9,10 +9,10 @@
 
 # Site-wide defaults, if this machine has them.
 #[include]
-#    path = /san/eda/pqs_utils/.gitconfig
+#    path = /path/to/site/gitconfig
 
 #[safe]
-#    directory = /shared/opt/eda/pqs_utils
+#    directory = /path/to/shared/repo
 
 #[http]
-#    proxy = HTTPS://10.1.9.254:3128
+#    proxy = HTTPS://proxy.example.net:3128

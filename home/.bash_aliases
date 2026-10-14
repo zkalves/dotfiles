@@ -1,6 +1,11 @@
 ################################################################################
 # UTILITIES
 ################################################################################
+# Site-specific values (registry, proxy, mounts). Not tracked.
+if [ -f ~/.bash_aliases.local ]; then
+    . ~/.bash_aliases.local
+fi
+
 # Git commands
 #alias git='hub'
 alias gadd='git add'
@@ -79,4 +84,7 @@ alias modld='module load'
 alias nvm_load='nvm use v20.20.1'
 
 #Docker
-alias docker_bash='docker run -it --rm --name ${USER}-r8-test2    -e http_proxy=http://10.1.9.254:3128 -e https_proxy=http://10.1.9.254:3128     -e LD_PRELOAD=/usr/lib64/libudev.so.1     -v /san:/san -v /data/dockerbuilds:/builds     harbor.pqsh.net/pqs-private/pqs-rocky8-phat:latest bash'
+# Configured in ~/.bash_aliases.local
+if [ -n "$DOCKER_IMAGE" ]; then
+    alias docker_bash='docker run -it --rm --name ${USER}-r8-test2 -e http_proxy=$DOCKER_PROXY -e https_proxy=$DOCKER_PROXY -e LD_PRELOAD=/usr/lib64/libudev.so.1 $DOCKER_MOUNTS $DOCKER_IMAGE bash'
+fi
