@@ -11,7 +11,7 @@ include $(DOTFILES_DIR)/libs.mk
 help:
 	@echo "dotfiles targets:"
 	@echo "  install      symlink dotfiles into \$$HOME, then install tmux plugins"
-	@echo "  links        symlink dotfiles only"
+	@echo "  links        symlink home/ and seed skel/ files that are missing"
 	@echo "  plugins      install tmux plugins only"
 	@echo "  libs         build every tool into $(PREFIX)"
 	@echo "  <tool>       build one of: $(LIBS)"

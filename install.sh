@@ -33,13 +33,25 @@ function install_links {
     done < <(find "$libdir/home" -type f -print0)
 }
 
-function install_gitconfig_local {
-    local target=$HOME/.gitconfig.local
+# skel/ mirrors $HOME too, but its files are seeds: copied once when the
+# destination is absent, never overwritten and never symlinked.
+function install_skel {
+    local src rel dst
 
-    if ! [ -e "$target" ]; then
-        cp "$libdir/templates/gitconfig.local.example" "$target"
-        echo "created $target - uncomment [user] and set name/email before committing"
-    fi
+    while IFS= read -r -d '' src; do
+        rel=${src#"$libdir/skel/"}
+        dst=$HOME/$rel
+
+        if [ -e "$dst" ]; then
+            continue
+        fi
+
+        mkdir -p "$(dirname "$dst")"
+        chmod 700 "$(dirname "$dst")"
+        cp "$src" "$dst"
+        chmod 600 "$dst"
+        echo "seeded $dst - edit it for this machine"
+    done < <(find "$libdir/skel" -type f -print0)
 }
 
 function install_tmux_plugins {
@@ -66,14 +78,14 @@ libdir=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 case "${1:-all}" in
     links)
         install_links
-        install_gitconfig_local
+        install_skel
         ;;
     plugins)
         install_tmux_plugins
         ;;
     all)
         install_links
-        install_gitconfig_local
+        install_skel
         install_tmux_plugins
         ;;
     *)
