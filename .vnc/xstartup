@@ -10,3 +10,7 @@ unset DBUS_SESSION_BUS_ADDRESS
 if [ -e /usr/bin/gnome-session -o -e /usr/bin/startkde ]; then
     vncserver -kill $DISPLAY
 fi
+
+# Fix VNC key repeat for tmux
+xset r rate 600 30
+
